@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="kor">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>간단한 HTML과 CSS</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f0f0f0;
+      }
+      
+      .container {
+        text-align: center;
+      }
+      
+      .btn {
+        padding: 50px 80px;
+        font-size: 60px;
+        background-color: #351375;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      
+      .btn:hover {
+        background-color: #351375;
+      }
+      
+</style>
+</head>
+<body>
+<div class="container">
+  <button class="btn" onclick="sendBuzzRequest()">문 열어!</button>
+</div>
+
+<script>
+  function sendBuzzRequest() {
+    const url = 'http://192.168.45.80/buzz'; // ESP32의 로컬 IP 주소
+
+    fetch(url, {
+      method: 'POST', // POST 요청을 사용
+      headers: {
+        'Content-Type': 'application/json' // JSON 형태로 데이터 전송
+      },
+      body: JSON.stringify({ action: 'buzz' }) // 서버에 전송할 데이터
+    })
+    .then(response => response.json()) // 응답을 JSON으로 변환
+    .then(data => {
+      console.log('Success:', data);
+      alert('부저가 울렸습니다!'); // 성공 메시지 알림
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      alert('요청에 실패했습니다.'); // 오류 메시지 알림
+    });
+  }
+</script>
+
+</body>
+</html>
