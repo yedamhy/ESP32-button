@@ -43,14 +43,10 @@
 
 <script>
   function sendBuzzRequest() {
-    const url = 'http://192.168.45.80/buzz'; // ESP32의 로컬 IP 주소
+    const url = 'http://1.238.102.75:80/toggle?action=on'; // ESP32의 로컬 IP 주소
 
     fetch(url, {
       method: 'POST', // POST 요청을 사용
-      headers: {
-        'Content-Type': 'application/json' // JSON 형태로 데이터 전송
-      },
-      body: JSON.stringify({ action: 'buzz' }) // 서버에 전송할 데이터
     })
     .then(response => response.json()) // 응답을 JSON으로 변환
     .then(data => {
